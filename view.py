@@ -46,7 +46,7 @@ def show_category():
     lista_itens = []
     with con:
         cur = con.cursor()
-        cur = con.execute("SELECT * FROM Categoria")
+        cur.execute("SELECT * FROM Categoria")
         linha = cur.fetchall()
         for l in linha:
             lista_itens.append(l)
@@ -58,7 +58,7 @@ def show_recipe():
     lista_itens = []
     with con:
         cur = con.cursor()
-        cur = con.execute("SELECT * FROM Receitas")
+        cur.execute("SELECT * FROM Receitas")
         linha = cur.fetchall()
         for l in linha:
             lista_itens.append(l)
@@ -70,7 +70,7 @@ def show_expenses():
     lista_itens = []
     with con:
         cur = con.cursor()
-        cur = con.execute("SELECT * FROM Gastos")
+        cur.execute("SELECT * FROM Gastos")
         linha = cur.fetchall()
         for l in linha:
             lista_itens.append(l)
