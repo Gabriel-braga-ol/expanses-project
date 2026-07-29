@@ -63,10 +63,10 @@ def percent():
 
     style = ttk.Style()
     style.theme_use('default')
-    style.configure("black.Horizontal.TProgressbar", background='#e06636')
+    style.configure("color.Horizontal.TProgressbar", background='#e06636') # "nome_estilo.Horizontal.TProgress" ou "nome_estilo.vertical.TProgress"
     style.configure("TProgressbar", thickness=25)
 
-    bar = Progressbar(frame_meio, length=180, style='black.Horizontal.TProgressbar')
+    bar = Progressbar(frame_meio, length=180, style='color.Horizontal.TProgressbar')
 
     bar.place(x=10,y=35)
     bar['value'] = 50
@@ -76,7 +76,50 @@ def percent():
     pct = Label(frame_meio, text="{:,.2f}%".format(valor), anchor=NW, font=('verdana 12'), background='#808080', fg=co1)
     pct.place(x=200, y=38)
 
+# gráfico de barras usando o matplotlib
+
+def graphc_bar():
+    lista_categorias = ['Renda', 'Despesas', 'Saldo']
+    lista_valores = [3000, 2000, 6236]
+
+    # faça figura e atribua objetos de eixo
+    figura = plt.Figure(figsize=(4, 3.45), dpi=60)
+    ax = figura.add_subplot(111)
+    # ax.autoscale(enable=True, axis='both', tight=None)
+
+    ax.bar(lista_categorias, lista_valores,  color=colors, width=0.9)
+    # create a list to collect the plt.patches data
+
+    c = 0
+    # set individual bar lables using above list
+    for i in ax.patches:
+        # get_x pulls left or right; get_height pushes up or down
+        ax.text(i.get_x()-.001, i.get_height()+.5,
+                str("{:,.0f}".format(lista_valores[c])), fontsize=17, fontstyle='italic',  verticalalignment='bottom',color='dimgrey')
+        c += 1
+
+    ax.set_xticklabels(lista_categorias,fontsize=16)
+
+    ax.patch.set_facecolor('#ffffff')
+    ax.spines['bottom'].set_color('#CCCCCC')
+    ax.spines['bottom'].set_linewidth(1)
+    ax.spines['right'].set_linewidth(0)
+    ax.spines['top'].set_linewidth(0)
+    ax.spines['left'].set_color('#CCCCCC')
+    ax.spines['left'].set_linewidth(1)
+
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.tick_params(bottom=False, left=False)
+    ax.set_axisbelow(True)
+    ax.yaxis.grid(False, color='#EEEEEE')
+    ax.xaxis.grid(False)
+
+    canva = FigureCanvasTkAgg(figura, frame_meio)
+    canva.get_tk_widget().place(x=10, y=70)
+
+
 percent()
-
-
+graphc_bar()
 janela.mainloop() # mostrar na tela?
