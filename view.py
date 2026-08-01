@@ -32,7 +32,7 @@ def delete_recipe(i):
         query = "DELETE FROM Receitas WHERE id = ?"
         cur.execute(query, i)
 
-# função para deletar gatos
+# função para deletar gastos
 def delete_expenses(i):
     with con:
         cur = con.cursor()
