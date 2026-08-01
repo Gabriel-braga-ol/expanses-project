@@ -37,3 +37,16 @@
 
     # canva = FigureCanvasTkAgg(figura, frame_meio)
     # canva.get_tk_widget().place(x=10, y=70)
+
+
+# def graphc_pie():
+#     lista_categorias = ['Despesas', 'Saldo restante']
+#     lista_valores = [7000, 3000]
+
+#     figura = plt.Figure(figsize=(4, 3.45), dpi=70, facecolor='#e9edf5')
+#     ax = figura.add_subplot(111)
+
+#     ax.pie(lista_valores, labels=lista_categorias, autopct='%1.1f%%', colors=colors,  textprops={'fontsize': 14, 'fontfamily': 'verdana', 'color': "#070707"}, startangle=-50)
+
+#     canva = FigureCanvasTkAgg(figura, frame_meio)
+#     canva.get_tk_widget().place(x=10, y=70)

@@ -13,7 +13,7 @@ from matplotlib.figure import Figure
 
 ################# cores ###############
 co0 = "#2e2d2b"  # Preta
-co1 = "#feffff"  # branca
+co1 = "#ffffff"  # branca
 co2 = "#4fa882"  # verde
 co3 = "#38576b"  # valor
 co4 = "#403d3d"   # letra
@@ -36,13 +36,13 @@ style = ttk.Style(janela)
 style.theme_use('clam')
 
 # criando frames para divisão da tela
-frame_cima = Frame(janela, width=1043, height=50, background='#808080', relief='flat')
+frame_cima = Frame(janela, width=1043, height=50, background=co1, relief='flat')
 frame_cima.grid(row=0, column=0) #cabeçalho
 
-frame_meio = Frame(janela, width=1043, height=361, background='#808080', pady=20, relief='raised')
+frame_meio = Frame(janela, width=1043, height=361, background='#e9edf5', pady=20, relief='raised')
 frame_meio.grid(row=1, column=0, pady=1, padx=0, sticky=NSEW) #meio
 
-frame_baixo = Frame(janela, width=1043, height=00, background='#808080', relief='flat')
+frame_baixo = Frame(janela, width=1043, height=00, background='#e9edf5', relief='flat')
 frame_baixo.grid(row=2, column=0, pady=0, padx=10, sticky=NSEW) #rodapé
 
 # Trabalhando no frame cima - acessando imagem
@@ -58,7 +58,7 @@ app_logo.Image = app_img # guardando a imagem em uma variável para não sumir
 # barra percentagem
 
 def percent():
-    progress_bar = Label(frame_meio, text='Porcentagem da receita gasta', height=1, anchor=NW, font=('verdana 12'), background='#808080', fg=co1)
+    progress_bar = Label(frame_meio, text='Porcentagem da receita gasta', height=1, anchor=NW, font=('verdana 12'), background='#e9edf5', fg=co0)
     progress_bar.place(x=7, y=5)
 
     style = ttk.Style()
@@ -73,23 +73,79 @@ def percent():
 
     valor = 50
 
-    pct = Label(frame_meio, text="{:,.2f}%".format(valor), anchor=NW, font=('verdana 12'), background='#808080', fg=co1)
+    pct = Label(frame_meio, text="{:,.2f}%".format(valor), anchor=NW, font=('verdana 12'), background='#e9edf5', fg=co0)
     pct.place(x=200, y=38)
 
 # gráfico de barras usando o matplotlib
 
-def graphc_pie():
-    lista_categorias = ['Despesas', 'Saldo restante']
-    lista_valores = [7000, 3000]
+def graphc_bar():
+    lista_categorias = ['Renda', 'Despesas', 'Saldo']
+    lista_valores = [3000, 2000, 6236]
 
-    figura = plt.Figure(figsize=(4, 3.45), dpi=70, facecolor='#808080')
+    # Criando a figura
+    figura = plt.Figure(figsize=(4, 3.45), dpi=60, facecolor='#e9edf5')
     ax = figura.add_subplot(111)
+    # ax.autoscale(enable=True, axis='both', tight=None)
 
-    ax.pie(lista_valores, labels=lista_categorias, autopct='%1.1f%%', colors=colors,  textprops={'fontsize': 14, 'fontfamily': 'verdana', 'color': "#070707"}, startangle=-50)
+    ax.bar(lista_categorias, lista_valores,  color=colors, width=0.9)
+    # create a list to collect the plt.patches data
+
+    # adicionando valor em cima da barra
+    c = 0
+    for i in ax.patches:
+        # get_x pulls left or right; get_height pushes up or down
+        ax.text(i.get_x()-.001, i.get_height()+.5,
+                str("{:,.0f}".format(lista_valores[c])), fontsize=17, fontstyle='italic',  verticalalignment='bottom',color='black')
+        c += 1
+
+    ax.set_xticklabels(lista_categorias,fontsize=16) #define os rótulos mostrados no eixo X
+
+    ax.patch.set_facecolor('#e9edf5')
+    ax.spines['bottom'].set_color('#CCCCCC')
+    ax.spines['bottom'].set_linewidth(1)
+    ax.spines['right'].set_linewidth(0)
+    ax.spines['top'].set_linewidth(0)
+    ax.spines['left'].set_color('#CCCCCC')
+    ax.spines['left'].set_linewidth(1)
+
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.tick_params(bottom=False, left=False)
+    ax.set_axisbelow(True)
+    ax.yaxis.grid(False)
+    ax.xaxis.grid(False)
 
     canva = FigureCanvasTkAgg(figura, frame_meio)
     canva.get_tk_widget().place(x=10, y=70)
 
+
+# Função de resumo total
+def summary():
+    valor = [500, 600, 480]
+
+    l_linha = Label(frame_meio, text='', width=215, height=1, anchor=NW, font=('Arial 1'), background='#545454')
+    l_linha.place(x=309, y=52)
+    l_linha2 = Label(frame_meio, text='Total Renda Mensal      '.upper(), anchor=NW, font=('Verdana 12'), background='#e9edf5', foreground='#83a9e6')
+    l_linha2.place(x=309, y=35)
+    l_linha3 = Label(frame_meio, text=f'R$ {valor[0]:,.2f}', anchor=NW, font=('Arial 17'), background='#e9edf5', foreground='#545454')
+    l_linha3.place(x=309, y=70)
+
+    l_linha4 = Label(frame_meio, text='', width=215, height=1, anchor=NW, font=('Arial 1'), background='#545454')
+    l_linha4.place(x=309, y=132)
+    l_linha5 = Label(frame_meio, text='Total despesas mensais      '.upper(), anchor=NW, font=('Verdana 12'), background='#e9edf5', foreground='#83a9e6')
+    l_linha5.place(x=309, y=115)
+    l_linha6 = Label(frame_meio, text=f'R$ {valor[1]:,.2f}', anchor=NW, font=('Arial 17'), background='#e9edf5', foreground='#545454')
+    l_linha6.place(x=309, y=150)
+    
+    l_linha7 = Label(frame_meio, text='', width=215, height=1, anchor=NW, font=('Arial 1'), background='#545454')
+    l_linha7.place(x=309, y=207)
+    l_linha8 = Label(frame_meio, text='Total saldo da caixa      '.upper(), anchor=NW, font=('Verdana 12'), background='#e9edf5', foreground='#83a9e6')
+    l_linha8.place(x=309, y=190)
+    l_linha9 = Label(frame_meio, text=f'R$ {valor[2]:,.2f}', anchor=NW, font=('Arial 17'), background='#e9edf5', foreground='#545454')
+    l_linha9.place(x=309, y=220)
+
 percent()
-graphc_pie()
+graphc_bar()
+summary()
 janela.mainloop() # mostrar na tela?
