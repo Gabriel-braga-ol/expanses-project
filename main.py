@@ -45,6 +45,9 @@ frame_meio.grid(row=1, column=0, pady=1, padx=0, sticky=NSEW) #meio
 frame_baixo = Frame(janela, width=1043, height=00, background='#e9edf5', relief='flat')
 frame_baixo.grid(row=2, column=0, pady=0, padx=10, sticky=NSEW) #rodapé
 
+frame_graphc_pie = Frame(frame_meio, width=580, height=250, background='#e9edf5')
+frame_graphc_pie.place(x=435, y=5)
+
 # Trabalhando no frame cima - acessando imagem
 
 app_img = Image.open('imagens/log.png')
@@ -126,26 +129,49 @@ def summary():
 
     l_linha = Label(frame_meio, text='', width=215, height=1, anchor=NW, font=('Arial 1'), background='#545454')
     l_linha.place(x=309, y=52)
-    l_linha2 = Label(frame_meio, text='Total Renda Mensal      '.upper(), anchor=NW, font=('Verdana 12'), background='#e9edf5', foreground='#83a9e6')
+    l_linha2 = Label(frame_meio, text='Total Renda Mensal     '.upper(), anchor=NW, font=('Verdana 12'), background='#e9edf5', foreground='#83a9e6')
     l_linha2.place(x=309, y=35)
     l_linha3 = Label(frame_meio, text=f'R$ {valor[0]:,.2f}', anchor=NW, font=('Arial 17'), background='#e9edf5', foreground='#545454')
     l_linha3.place(x=309, y=70)
 
     l_linha4 = Label(frame_meio, text='', width=215, height=1, anchor=NW, font=('Arial 1'), background='#545454')
     l_linha4.place(x=309, y=132)
-    l_linha5 = Label(frame_meio, text='Total despesas mensais      '.upper(), anchor=NW, font=('Verdana 12'), background='#e9edf5', foreground='#83a9e6')
+    l_linha5 = Label(frame_meio, text='Total despesas mensais'.upper(), anchor=NW, font=('Verdana 12'), background='#e9edf5', foreground='#83a9e6')
     l_linha5.place(x=309, y=115)
     l_linha6 = Label(frame_meio, text=f'R$ {valor[1]:,.2f}', anchor=NW, font=('Arial 17'), background='#e9edf5', foreground='#545454')
     l_linha6.place(x=309, y=150)
     
     l_linha7 = Label(frame_meio, text='', width=215, height=1, anchor=NW, font=('Arial 1'), background='#545454')
     l_linha7.place(x=309, y=207)
-    l_linha8 = Label(frame_meio, text='Total saldo da caixa      '.upper(), anchor=NW, font=('Verdana 12'), background='#e9edf5', foreground='#83a9e6')
+    l_linha8 = Label(frame_meio, text='Total saldo da caixa   '.upper(), anchor=NW, font=('Verdana 12'), background='#e9edf5', foreground='#83a9e6')
     l_linha8.place(x=309, y=190)
     l_linha9 = Label(frame_meio, text=f'R$ {valor[2]:,.2f}', anchor=NW, font=('Arial 17'), background='#e9edf5', foreground='#545454')
     l_linha9.place(x=309, y=220)
 
+
+# função gráfico pie
+def graphc_pie():
+    figura = plt.Figure(figsize=(5, 3), dpi=90, facecolor='#e9edf5')
+    ax = figura.add_subplot(111)
+
+    lista_valores = [345,225,534]
+    lista_categorias = ['Renda', 'Despesa', 'Saldo']
+
+    # only "explode" the 2nd slice (i.e. 'Hogs')
+
+    explode = []
+    for i in lista_categorias:
+        explode.append(0.05)
+
+    ax.pie(lista_valores, explode=explode, wedgeprops=dict(width=0.2), autopct='%1.1f%%', colors=colors,shadow=True, startangle=90)
+    ax.legend(lista_categorias, loc="center right", bbox_to_anchor=(1.55, 0.50))
+
+    canva_categoria = FigureCanvasTkAgg(figura, frame_graphc_pie)
+    canva_categoria.get_tk_widget().grid(row=0, column=0)
+
+
 percent()
 graphc_bar()
 summary()
+graphc_pie()
 janela.mainloop() # mostrar na tela?
