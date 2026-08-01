@@ -78,7 +78,7 @@ def percent():
 
 # gráfico de barras usando o matplotlib
 
-def graphc_bar():
+def graphc_pie():
     lista_categorias = ['Despesas', 'Saldo restante']
     lista_valores = [7000, 3000]
 
@@ -91,5 +91,5 @@ def graphc_bar():
     canva.get_tk_widget().place(x=10, y=70)
 
 percent()
-graphc_bar()
+graphc_pie()
 janela.mainloop() # mostrar na tela?
