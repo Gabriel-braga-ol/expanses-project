@@ -174,4 +174,56 @@ percent()
 graphc_bar()
 summary()
 graphc_pie()
+
+# Criando frames dentro do frame_baixo
+
+frame_renda = Frame(frame_baixo, width=300, height=250, background=co1, relief='flat')
+frame_renda.grid(row=0, column=0)
+
+frame_operacoes = Frame(frame_baixo, width=220, height=250, background=co1, relief='flat')
+frame_operacoes.grid(row=0, column=1, padx=0)
+
+frame_configuracoes = Frame(frame_baixo, width=220, height=250, background=co1, relief='flat')
+frame_configuracoes.grid(row=0, column=2, padx=0)
+
+# Tabela renda mensal
+app_tabela = Label(frame_meio, text='Tabela de receitas e despesas', anchor=NW, font=('Verdana 12'), background='#e9edf5', foreground=co0) 
+app_tabela.place(x=5, y=309)
+
+# Função para mostrar tabela
+def show_table():
+    tabela_head = ['#Id','Categoria','Data','Quantia']
+
+    lista_itens = [[0,2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4]]
+    
+    global tree
+
+    tree = ttk.Treeview(frame_renda, selectmode="extended",columns=tabela_head, show="headings")
+    # vertical scrollbar
+    vsb = ttk.Scrollbar(frame_renda, orient="vertical", command=tree.yview)
+    # horizontal scrollbar
+    hsb = ttk.Scrollbar(frame_renda, orient="horizontal", command=tree.xview)
+
+    tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+
+    tree.grid(column=0, row=0, sticky='nsew')
+    vsb.grid(column=1, row=0, sticky='ns')
+    hsb.grid(column=0, row=1, sticky='ew')
+
+    hd=["center","center","center", "center"]
+    h=[30,100,100,100]
+    n=0
+
+    for col in tabela_head:
+        tree.heading(col, text=col.title(), anchor=CENTER)
+        # adjust the column's width to the header string
+        tree.column(col, width=h[n],anchor=hd[n])
+        
+        n+=1
+
+    for item in lista_itens:
+        tree.insert('', 'end', values=item)
+
+show_table()
+
 janela.mainloop() # mostrar na tela?
