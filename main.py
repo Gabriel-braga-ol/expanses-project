@@ -235,12 +235,12 @@ l_info.place(x=5, y=10)
 l_categoria = Label(frame_operacoes, text='Categoria', height=1, anchor=NW, relief='flat', font=('Verdana 10 bold'), background=co1, foreground=co0)
 l_categoria.place(x=5, y=40)
 
-# Pegando categorias
+# Inserindo categorias
 categoria_funcao = ['Viagem', 'Comida']
 categoria = []
 
 for i in categoria_funcao:
-    categoria.append(i[1])
+    categoria.append(i)
 
 combo_categoria_despesas = ttk.Combobox(frame_operacoes, width=10, font=('Ivy 10'))
 combo_categoria_despesas['values'] = (categoria)
