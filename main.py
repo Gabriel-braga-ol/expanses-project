@@ -11,6 +11,11 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 
+#tkcalendar
+from tkcalendar import Calendar, DateEntry
+from datetime import date
+
+
 ################# cores ###############
 co0 = "#2e2d2b"  # Preta
 co1 = "#ffffff"  # branca
@@ -48,8 +53,8 @@ frame_baixo.grid(row=2, column=0, pady=0, padx=10, sticky=NSEW) #rodapé
 frame_graphc_pie = Frame(frame_meio, width=580, height=250, background='#e9edf5')
 frame_graphc_pie.place(x=435, y=5)
 
-# Trabalhando no frame cima - acessando imagem
 
+# Trabalhando no frame cima - acessando imagem
 app_img = Image.open('imagens/log.png')
 app_img = app_img.resize((45,45)) #redimensiona a imagem(largura,altura)
 app_img = ImageTk.PhotoImage(app_img)
@@ -157,13 +162,9 @@ def graphc_pie():
     lista_valores = [345,225,534]
     lista_categorias = ['Renda', 'Despesa', 'Saldo']
 
-    # only "explode" the 2nd slice (i.e. 'Hogs')
+    explode = [0.05] * len(lista_categorias) # Espaçamento entre as fatias
 
-    explode = []
-    for i in lista_categorias:
-        explode.append(0.05)
-
-    ax.pie(lista_valores, explode=explode, wedgeprops=dict(width=0.2), autopct='%1.1f%%', colors=colors,shadow=True, startangle=90)
+    ax.pie(lista_valores, explode=explode, autopct='%1.1f%%', colors=colors,shadow=True, startangle=90)
     ax.legend(lista_categorias, loc="center right", bbox_to_anchor=(1.55, 0.50))
 
     canva_categoria = FigureCanvasTkAgg(figura, frame_graphc_pie)
@@ -180,10 +181,10 @@ graphc_pie()
 frame_renda = Frame(frame_baixo, width=300, height=250, background=co1, relief='flat')
 frame_renda.grid(row=0, column=0)
 
-frame_operacoes = Frame(frame_baixo, width=220, height=250, background=co1, relief='flat')
+frame_operacoes = Frame(frame_baixo, width=220, height=235, background=co1, relief='flat')
 frame_operacoes.grid(row=0, column=1, padx=0)
 
-frame_configuracoes = Frame(frame_baixo, width=220, height=250, background=co1, relief='flat')
+frame_configuracoes = Frame(frame_baixo, width=330, height=235, background=co1, relief='flat')
 frame_configuracoes.grid(row=0, column=2, padx=0)
 
 # Tabela renda mensal
@@ -216,7 +217,7 @@ def show_table():
 
     for col in tabela_head:
         tree.heading(col, text=col.title(), anchor=CENTER)
-        # adjust the column's width to the header string
+
         tree.column(col, width=h[n],anchor=hd[n])
         
         n+=1
@@ -225,5 +226,49 @@ def show_table():
         tree.insert('', 'end', values=item)
 
 show_table()
+
+# Configurando as despesas
+l_info = Label(frame_operacoes, text='Insira novas despesas', height=1, anchor=NW, relief='flat', font=('Verdana 10 bold'), background=co1, foreground=co0)
+l_info.place(x=5, y=10)
+
+# categorias
+l_categoria = Label(frame_operacoes, text='Categoria', height=1, anchor=NW, relief='flat', font=('Verdana 10 bold'), background=co1, foreground=co0)
+l_categoria.place(x=5, y=40)
+
+# Pegando categorias
+categoria_funcao = ['Viagem', 'Comida']
+categoria = []
+
+for i in categoria_funcao:
+    categoria.append(i[1])
+
+combo_categoria_despesas = ttk.Combobox(frame_operacoes, width=10, font=('Ivy 10'))
+combo_categoria_despesas['values'] = (categoria)
+combo_categoria_despesas.place(x=110, y=41)
+
+# Despesas
+l_cal_despesas = Label(frame_operacoes, text='Data', height=1, anchor=NW, relief='flat', font=('Verdana 10 bold'), background=co1, foreground=co0)
+l_cal_despesas.place(x=5, y=70)
+
+despesas_calendar = DateEntry(frame_operacoes, width=12, background='darkblue', foreground='white', borderwidth=2, year=2026)
+despesas_calendar.place(x=110, y=71)
+
+# valor depesas
+l_valor_despesas = Label(frame_operacoes, text='Quantia total', height=1, anchor=NW, relief='flat', font=('Verdana 10 bold'), background=co1, foreground=co0)
+l_valor_despesas.place(x=5, y=100)
+
+e_valor_despesas = Entry(frame_operacoes, width=14, justify='left', relief='solid')
+e_valor_despesas.place(x=110, y=101)
+
+
+# Botão inserir
+img_add_despesas = Image.open('imagens/add.png')
+img_add_despesas = img_add_despesas.resize((17,17)) #redimensiona a imagem(largura,altura)
+img_add_despesas = ImageTk.PhotoImage(img_add_despesas)
+
+botao_inserir_despesas = Button(frame_operacoes, image=img_add_despesas, text=" Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
+
+botao_inserir_despesas.place(x=110,y=131)
+botao_inserir_despesas.Image = img_add_despesas
 
 janela.mainloop() # mostrar na tela?

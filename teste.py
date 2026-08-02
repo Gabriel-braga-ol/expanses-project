@@ -50,3 +50,12 @@
 
 #     canva = FigureCanvasTkAgg(figura, frame_meio)
 #     canva.get_tk_widget().place(x=10, y=70)
+
+# categoria_funcao = ['Viagem', 'Comida']
+# categoria = []
+
+# for i in categoria_funcao:
+#     categoria.append(i[1])
+
+
+# print(categoria)
