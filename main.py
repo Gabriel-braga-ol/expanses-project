@@ -271,4 +271,17 @@ botao_inserir_despesas = Button(frame_operacoes, image=img_add_despesas, text=" 
 botao_inserir_despesas.place(x=110,y=131)
 botao_inserir_despesas.Image = img_add_despesas
 
+# Inserindo botão de excluir
+l_excluir = Label(frame_operacoes, text='Excluir ação', height=1, anchor=NW, relief='flat', font=('Verdana 10 bold'), background=co1, foreground=co0)
+l_excluir.place(x=5, y=190)
+
+img_del_acao = Image.open('imagens/trash.png')
+img_del_acao = img_del_acao.resize((17,17)) #redimensiona a imagem(largura,altura)
+img_del_acao = ImageTk.PhotoImage(img_del_acao)
+
+botao_del_acao = Button(frame_operacoes, image=img_del_acao, text=" Deletar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
+
+botao_del_acao.place(x=110,y=190)
+botao_del_acao.Image = img_del_acao
+
 janela.mainloop() # mostrar na tela?
