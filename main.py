@@ -262,14 +262,14 @@ e_valor_despesas.place(x=110, y=101)
 
 
 # Botão inserir
-img_add_despesas = Image.open('imagens/add.png')
-img_add_despesas = img_add_despesas.resize((17,17)) #redimensiona a imagem(largura,altura)
-img_add_despesas = ImageTk.PhotoImage(img_add_despesas)
+img_add_receitas = Image.open('imagens/add.png')
+img_add_receitas = img_add_receitas.resize((17,17)) #redimensiona a imagem(largura,altura)
+img_add_receitas = ImageTk.PhotoImage(img_add_receitas)
 
-botao_inserir_despesas = Button(frame_operacoes, image=img_add_despesas, text=" Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
+botao_inserir_receitas = Button(frame_operacoes, image=img_add_receitas, text=" Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
 
-botao_inserir_despesas.place(x=110,y=131)
-botao_inserir_despesas.Image = img_add_despesas
+botao_inserir_receitas.place(x=110,y=131)
+botao_inserir_receitas.Image = img_add_receitas
 
 # Inserindo botão de excluir
 l_excluir = Label(frame_operacoes, text='Excluir ação', height=1, anchor=NW, relief='flat', font=('Verdana 10 bold'), background=co1, foreground=co0)
@@ -283,5 +283,48 @@ botao_del_acao = Button(frame_operacoes, image=img_del_acao, text=" Deletar".upp
 
 botao_del_acao.place(x=110,y=190)
 botao_del_acao.Image = img_del_acao
+
+# Configurando receitas
+l_recipe = Label(frame_configuracoes, text='Insira novas receitas', height=1, anchor=NW, relief='flat', font=('Verdana 10 bold'), background=co1, foreground=co0)
+l_recipe.place(x=50, y=10)
+
+# Campo para inserir a data
+l_date = Label(frame_configuracoes, text='Data', height=1, anchor=NW, relief='flat', font=('Verdana 10 bold'), background=co1, foreground=co0)
+l_date.place(x=50, y=40)
+
+recipes_calendar = DateEntry(frame_configuracoes, width=12, background='darkblue', foreground='white', borderwidth=2, year=2026)
+recipes_calendar.place(x=160, y=40)
+
+l_valor_recipes = Label(frame_configuracoes, text='Quantia total', height=1, anchor=NW, relief='flat', font=('Verdana 10 bold'), background=co1, foreground=co0)
+l_valor_recipes.place(x=50, y=70)
+
+e_valor_recipes = Entry(frame_configuracoes, width=14, justify='left', relief='solid')
+e_valor_recipes.place(x=160, y=70)
+
+img_add_receitas = Image.open('imagens/add.png')
+img_add_receitas = img_add_receitas.resize((17,17)) #redimensiona a imagem(largura,altura)
+img_add_receitas = ImageTk.PhotoImage(img_add_receitas)
+
+botao_inserir_receitas = Button(frame_configuracoes, image=img_add_receitas, text=" Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
+
+botao_inserir_receitas.place(x=160,y=100)
+botao_inserir_receitas.Image = img_add_receitas
+
+add_categoria = Label(frame_configuracoes, text='Categoria', height=1, anchor=NW, relief='flat', font=('Verdana 10 bold'), background=co1, foreground=co0)
+add_categoria.place(x=50, y=150)
+
+entry_categoria = Entry(frame_configuracoes, width=14, justify='left', relief='solid')
+entry_categoria.place(x=160, y=150)
+
+img_add_categoria = Image.open('imagens/add.png')
+img_add_categoria = img_add_categoria.resize((17,17)) #redimensiona a imagem(largura,altura)
+img_add_categoria = ImageTk.PhotoImage(img_add_categoria)
+
+botao_inserir_categoria = Button(frame_configuracoes, image=img_add_categoria, text=" Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
+
+botao_inserir_categoria.place(x=160,y=180)
+botao_inserir_categoria.Image = img_add_categoria
+
+
 
 janela.mainloop() # mostrar na tela?
