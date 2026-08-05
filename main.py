@@ -123,6 +123,35 @@ def inserir_receitas():
     summary()
     graphc_pie()
 
+# função inserir despesas
+def inserir_despesas():
+    nome = combo_categoria_despesas.get()
+    data = despesas_calendar.get()
+    quantia = e_valor_despesas.get()
+
+    lista_inserir = [nome, data, quantia]
+
+    for i in lista_inserir:
+        if i == '':
+            messagebox.showerror('Error', 'Preencha todos os campos')
+            return
+
+    # chamando a função inserir despesas presente na view
+    insert_expenses(lista_inserir)
+
+    messagebox.showinfo('Sucesso', 'Dados inseridos com sucessos')
+
+    combo_categoria_despesas.delete(0, 'end')
+    despesas_calendar.delete(0, 'end')
+    e_valor_despesas.delete(0, 'end')
+
+    # atualizando dados
+    show_table()
+    percent()
+    graphc_bar()
+    summary()
+    graphc_pie()
+    
  
 # barra percentagem
 
@@ -256,7 +285,7 @@ app_tabela.place(x=5, y=309)
 def show_table():
     tabela_head = ['#Id','Categoria','Data','Quantia']
 
-    lista_itens = [[0,2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4]]
+    lista_itens = table()
     
     global tree
 
@@ -297,7 +326,7 @@ l_categoria = Label(frame_operacoes, text='Categoria', height=1, anchor=NW, reli
 l_categoria.place(x=5, y=40)
 
 # Inserindo categorias
-categoria_funcao = ['Viagem', 'Comida']
+categoria_funcao = show_category()
 categoria = []
 
 for i in categoria_funcao:
@@ -327,7 +356,7 @@ img_add_receitas = Image.open('imagens/add.png')
 img_add_receitas = img_add_receitas.resize((17,17)) #redimensiona a imagem(largura,altura)
 img_add_receitas = ImageTk.PhotoImage(img_add_receitas)
 
-botao_inserir_receitas = Button(frame_operacoes, image=img_add_receitas, text=" Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
+botao_inserir_receitas = Button(frame_operacoes, command=inserir_despesas, image=img_add_receitas, text=" Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
 
 botao_inserir_receitas.place(x=110,y=131)
 botao_inserir_receitas.Image = img_add_receitas

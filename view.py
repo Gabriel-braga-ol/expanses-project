@@ -19,7 +19,7 @@ def insert_recipe(nome):
         cur.execute(query, nome)
 
 # Inserindo gastos        
-def insert_recipe(nome):
+def insert_expenses(nome):
     with con:
         cur = con.cursor()
         query = "INSERT INTO Gastos (categoria, retirado_em, valor) VALUES (?,?,?)"
@@ -76,6 +76,21 @@ def show_expenses():
             lista_itens.append(l)
 
     return lista_itens
+
+# função para dados da tabela
+def table():
+    expenses = show_expenses()
+    recipes = show_recipe()
+
+    table_list = []
+
+    for i in expenses:
+        table_list.append(i)
+
+    for i in recipes:
+        table_list.append(i)
+
+    return table_list
 
 # função para ver dados do gráfico de barra
 def bar_value():
