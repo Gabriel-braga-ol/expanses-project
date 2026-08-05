@@ -76,3 +76,11 @@ def show_expenses():
             lista_itens.append(l)
 
     return lista_itens
+
+# função para ver dados do gráfico de barra
+def bar_value():
+    receitas = show_recipe()
+    receitas_lista = []
+
+    for i in receitas:
+        receitas_lista.append(i[3])

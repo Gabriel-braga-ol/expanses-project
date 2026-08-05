@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import Tk, ttk
+from tkinter import messagebox
 
 # Importando pillow
 from PIL import Image, ImageTk
@@ -14,6 +15,9 @@ from matplotlib.figure import Figure
 #tkcalendar
 from tkcalendar import Calendar, DateEntry
 from datetime import date
+
+# importando a view
+from view import *
 
 
 ################# cores ###############
@@ -62,6 +66,37 @@ app_img = ImageTk.PhotoImage(app_img)
 app_logo = Label(frame_cima, image=app_img, text=" Orçamento pessoal", width=900, compound=LEFT, padx=5, relief='raised', anchor=NW, font=('verdana 20 bold'), background='#ffffff', fg='#000000')
 app_logo.place(x=0,y=0)
 app_logo.Image = app_img # guardando a imagem em uma variável para não sumir
+
+# Criando a função inserir categoria
+global tree
+
+def inserir_categoria():
+    nome = entry_categoria.get()
+    lista_inserir = [nome]
+
+    for i in lista_inserir:
+        if i == '':
+            messagebox.showerror('Erro. Preencha todos os campos')
+            return 
+
+    insert_category(lista_inserir)
+
+    messagebox.showinfo('Sucesso', 'Dados inseridos com sucesso')
+
+    entry_categoria.delete(0, 'end')
+
+    # pegando valores da categoria
+    categoria_funcao = show_category()
+    lista_categoria = []
+
+    for i in categoria_funcao:
+        lista_categoria.append(i[1])
+
+    # atualizando a lista de categorias
+    combo_categoria_despesas['values'] = (lista_categoria)
+        
+
+
  
 # barra percentagem
 
@@ -240,7 +275,7 @@ categoria_funcao = ['Viagem', 'Comida']
 categoria = []
 
 for i in categoria_funcao:
-    categoria.append(i)
+    categoria.append(i[1])
 
 combo_categoria_despesas = ttk.Combobox(frame_operacoes, width=10, font=('Ivy 10'))
 combo_categoria_despesas['values'] = (categoria)
@@ -320,7 +355,7 @@ img_add_categoria = Image.open('imagens/add.png')
 img_add_categoria = img_add_categoria.resize((17,17)) #redimensiona a imagem(largura,altura)
 img_add_categoria = ImageTk.PhotoImage(img_add_categoria)
 
-botao_inserir_categoria = Button(frame_configuracoes, image=img_add_categoria, text=" Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
+botao_inserir_categoria = Button(frame_configuracoes, command=inserir_categoria, image=img_add_categoria, text=" Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
 
 botao_inserir_categoria.place(x=160,y=180)
 botao_inserir_categoria.Image = img_add_categoria
