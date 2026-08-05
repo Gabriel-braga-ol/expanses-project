@@ -76,7 +76,7 @@ def inserir_categoria():
 
     for i in lista_inserir:
         if i == '':
-            messagebox.showerror('Erro. Preencha todos os campos')
+            messagebox.showerror('Erro', 'Preencha todos os campos')
             return 
 
     insert_category(lista_inserir)
@@ -95,7 +95,33 @@ def inserir_categoria():
     # atualizando a lista de categorias
     combo_categoria_despesas['values'] = (lista_categoria)
         
+# função inserir receitas
+def inserir_receitas():
+    nome = 'Receita'
+    data = recipes_calendar.get()
+    quantia = e_valor_recipes.get()
 
+    lista_inserir = [nome, data, quantia]
+
+    for i in lista_inserir:
+        if i == '':
+            messagebox.showerror('Erro', 'Preencha todos os campos')   
+            return
+
+    # chamando a função inserir receitas presente na view
+    insert_recipe(lista_inserir)
+
+    messagebox.showinfo('Sucasso', 'Dados inseridos com sucesso')
+
+    recipes_calendar.delete(0, 'end')
+    e_valor_recipes.delete(0, 'end')
+
+    # atualizando dados
+    show_table()
+    percent()
+    graphc_bar()
+    summary()
+    graphc_pie()
 
  
 # barra percentagem
@@ -340,7 +366,7 @@ img_add_receitas = Image.open('imagens/add.png')
 img_add_receitas = img_add_receitas.resize((17,17)) #redimensiona a imagem(largura,altura)
 img_add_receitas = ImageTk.PhotoImage(img_add_receitas)
 
-botao_inserir_receitas = Button(frame_configuracoes, image=img_add_receitas, text=" Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
+botao_inserir_receitas = Button(frame_configuracoes, command=inserir_receitas, image=img_add_receitas, text=" Adicionar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
 
 botao_inserir_receitas.place(x=160,y=100)
 botao_inserir_receitas.Image = img_add_receitas
