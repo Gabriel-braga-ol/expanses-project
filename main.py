@@ -151,7 +151,40 @@ def inserir_despesas():
     graphc_bar()
     summary()
     graphc_pie()
+
+# função deletar
+def deletar_dados():
+    try:
+        treev_dados = tree.focus()
+        treev_dict = tree.item(treev_dados)
+        treev_lista = treev_dict['values']
+        valor = treev_lista[0]
+        nome = treev_lista[1]
+
+        if nome == 'Receita':
+            delete_recipe([valor])
+            messagebox.askyesno('Excluir dados', 'Tem certeza que deseja excluir esses dados?')
+
+            #atualizando dados
+            show_table()
+            percent()
+            graphc_bar()
+            summary()
+            graphc_pie()
+
+        else:
+            delete_expenses([valor])
+            messagebox.askyesno('Excluir dados', 'Tem certeza que deseja excluir esses dados?')
+
+            #atualizando dados
+            show_table()
+            percent()
+            graphc_bar()
+            summary()
+            graphc_pie()
     
+    except IndexError:
+        messagebox.showerror('Error', 'Seleciona um dos dados da tabela')
  
 # barra percentagem
 
@@ -369,7 +402,7 @@ img_del_acao = Image.open('imagens/trash.png')
 img_del_acao = img_del_acao.resize((17,17)) #redimensiona a imagem(largura,altura)
 img_del_acao = ImageTk.PhotoImage(img_del_acao)
 
-botao_del_acao = Button(frame_operacoes, image=img_del_acao, text=" Deletar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
+botao_del_acao = Button(frame_operacoes, command=deletar_dados, image=img_del_acao, text=" Deletar".upper(), width=80, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), background='#ffffff', fg='#000000', overrelief='ridge')
 
 botao_del_acao.place(x=110,y=190)
 botao_del_acao.Image = img_del_acao
