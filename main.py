@@ -155,33 +155,34 @@ def inserir_despesas():
 # função deletar
 def deletar_dados():
     try:
-        treev_dados = tree.focus()
-        treev_dict = tree.item(treev_dados)
-        treev_lista = treev_dict['values']
-        valor = treev_lista[0]
-        nome = treev_lista[1]
+        treev_dados = tree.focus() # pega a linha selecionada
+        treev_dict = tree.item(treev_dados) # dicionario com todas as informações da linha selecionada
+        treev_lista = treev_dict['values'] # extrai somente a lista de valores da linha selecionada
+        valor = treev_lista[0] # primeiro valor da linha (id)
+        nome = treev_lista[1] # Segundo valor da linha (nome - categoria)
 
         if nome == 'Receita':
-            delete_recipe([valor])
-            messagebox.askyesno('Excluir dados', 'Tem certeza que deseja excluir esses dados?')
+            user_choice = messagebox.askyesno('Excluir dados', 'Tem certeza que deseja excluir esses dados?')
+            if user_choice:
+                delete_recipe([valor])
 
-            #atualizando dados
-            show_table()
-            percent()
-            graphc_bar()
-            summary()
-            graphc_pie()
+                #atualizando dados
+                show_table()
+                percent()
+                graphc_bar()
+                summary()
+                graphc_pie()
 
         else:
-            delete_expenses([valor])
-            messagebox.askyesno('Excluir dados', 'Tem certeza que deseja excluir esses dados?')
-
-            #atualizando dados
-            show_table()
-            percent()
-            graphc_bar()
-            summary()
-            graphc_pie()
+            user_choice = messagebox.askyesno('Excluir dados', 'Tem certeza que deseja excluir esses dados?')
+            if user_choice:
+                delete_expenses([valor])
+                #atualizando dados
+                show_table()
+                percent()
+                graphc_bar()
+                summary()
+                graphc_pie()
     
     except IndexError:
         messagebox.showerror('Error', 'Seleciona um dos dados da tabela')
