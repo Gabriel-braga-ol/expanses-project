@@ -190,7 +190,7 @@ def deletar_dados():
 # barra percentagem
 
 def percent():
-    progress_bar = Label(frame_meio, text='Porcentagem da receita gasta', height=1, anchor=NW, font=('verdana 12'), background='#e9edf5', fg=co0)
+    progress_bar = Label(frame_meio, text='Porcentagem da receita restante', height=1, anchor=NW, font=('verdana 12'), background='#e9edf5', fg=co0)
     progress_bar.place(x=7, y=5)
 
     style = ttk.Style()
@@ -201,9 +201,9 @@ def percent():
     bar = Progressbar(frame_meio, length=180, style='color.Horizontal.TProgressbar')
 
     bar.place(x=10,y=35)
-    bar['value'] = 50
+    bar['value'] = percent_value()
 
-    valor = 50
+    valor = percent_value()[0]
 
     pct = Label(frame_meio, text="{:,.2f}%".format(valor), anchor=NW, font=('verdana 12'), background='#e9edf5', fg=co0)
     pct.place(x=200, y=38)
@@ -212,7 +212,7 @@ def percent():
 
 def graphc_bar():
     lista_categorias = ['Renda', 'Despesas', 'Saldo']
-    lista_valores = [3000, 2000, 6236]
+    lista_valores = bar_value()
 
     # Criando a figura
     figura = plt.Figure(figsize=(4, 3.45), dpi=60, facecolor='#e9edf5')
@@ -254,7 +254,7 @@ def graphc_bar():
 
 # Função de resumo total
 def summary():
-    valor = [500, 600, 480]
+    valor = bar_value()
 
     l_linha = Label(frame_meio, text='', width=215, height=1, anchor=NW, font=('Arial 1'), background='#545454')
     l_linha.place(x=309, y=52)
@@ -283,8 +283,8 @@ def graphc_pie():
     figura = plt.Figure(figsize=(5, 3), dpi=90, facecolor='#e9edf5')
     ax = figura.add_subplot(111)
 
-    lista_valores = [345,225,534]
-    lista_categorias = ['Renda', 'Despesa', 'Saldo']
+    lista_valores = pie_values()[1]
+    lista_categorias = pie_values()[0]
 
     explode = [0.05] * len(lista_categorias) # Espaçamento entre as fatias
 
